@@ -1,81 +1,76 @@
-import React, { useState } from 'react'
-import { FieldArray } from 'formik'
-import Lapsi from './Lapsi'
+import React from 'react'
+import FieldArrayInput from './FieldArrayInput'
+import TableRow from '../../TableRow'
 import styled from 'styled-components'
-import { v4 } from 'uuid'
-import SmallButton from '../../SmallButton'
+import FormikInput from '../../FormikInput'
+import calcAge from '../../../utils/calcAge'
+import { v4 as uuid } from 'uuid'
 
-const LapsiFlexParent = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
+const Container = styled.div`
+  // border: 1px solid black;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.1);
 `
-const LapsiFlexChild = styled.div`
-  width: calc(100% / 3);
-  min-width: 325px;
-`
+
 const Lapset = ({ name, values }) => {
-  const [amount, setAmount] = useState(values[name].length)
-
-  const incrementAmount = () => {
-    setAmount(amount + 1)
-  }
-  const decrementAmount = () => {
-    if (amount > 0) {
-      setAmount(amount - 1)
-    }
-  }
-
-  // Päivitetään Formikin tilaa jos on tarve
-  while (values.lapset.length < amount) {
-    values.lapset.push({
-      id: v4(),
-      sukupuoli: '',
-      syntymäpäivä: '',
-      vaatekoko: '',
-      kenkäkoko: '',
-      kiinnostuksenKohteet: '',
-    })
-  }
-  while (values.lapset.length > amount) {
-    values.lapset.pop()
-  }
-
-  // Renderöidään komponentit taulukolla
-  const lapset = []
-  for (let i = 0; i < values.lapset.length; i++) {
-    lapset.push(
-      <LapsiFlexChild key={values.lapset[i].id}>
-        <Lapsi
-          index={i}
-          values={values}
-        />
-      </LapsiFlexChild>
-    )
-  }
-
-
   return (
-    <FieldArray name={name}>
-      {() => {
-        return (
-          <>
-            <div>
-              <b>Lapset ({amount})</b>
-              <SmallButton onClick={decrementAmount}>
-                -1
-              </SmallButton>
-              <SmallButton onClick={incrementAmount}>
-                +1
-              </SmallButton>
-            </div>
-            <LapsiFlexParent>
-              {lapset}
-            </LapsiFlexParent>
-          </>
-        )
+    <FieldArrayInput
+      name={name}
+      label="Lapset"
+      minWidth="325px"
+      values={values}
+      newArrayElement={{
+        id: uuid(),
+        sukupuoli: '',
+        syntymäpäivä: '',
+        vaatekoko: '',
+        kenkäkoko: '',
+        kiinnostuksenKohteet: '',
       }}
-    </FieldArray>
+    >
+      {values.lapset.map((lapsi, i) => (
+        <Container key={lapsi.id}>
+          <table>
+            <tbody>
+              <TableRow label="Sukupuoli">
+                <FormikInput name={`lapset[${i}].sukupuoli`} />
+              </TableRow>
+              <TableRow label="Syntymäpäivä">
+                <FormikInput name={`lapset[${i}].syntymäpäivä`} type="date" />
+              </TableRow>
+              <TableRow label="Ikä">
+                {values.lapset[i]
+                  && values.lapset[i].syntymäpäivä
+                  && calcAge(new Date(values.lapset[i].syntymäpäivä))
+                }
+              </TableRow>
+              <TableRow label="Vaatekoko">
+                <FormikInput name={`lapset[${i}].vaatekoko`} />
+              </TableRow>
+              <TableRow label="Kenkäkoko">
+                <FormikInput name={`lapset[${i}].kenkäkoko`} />
+              </TableRow>
+              <tr>
+                <th colSpan="2">
+                      Kiinnostuksen kohteet:
+                </th>
+              </tr>
+              <tr>
+                <td colSpan="2">
+                  <FormikInput
+                    name={`lapset[${i}].kiinnostuksenKohteet`}
+                    type="textarea"
+                    rows={4}
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </Container>
+      ))}
+    </FieldArrayInput>
   )
 }
 
