@@ -2,6 +2,7 @@ import React from 'react'
 import FamilyContainer from './FamilyContainer'
 import styled from 'styled-components'
 import Header from './Header'
+import NoPrint from '../NoPrint'
 
 const FamilyContainerWithHover = styled(FamilyContainer)`
   background-color: rgb(239, 239, 239);
@@ -15,17 +16,19 @@ const FamilyView = ({ family, setDisplay, isNewForm }) => {
   const handleOnClick = () => setDisplay(isNewForm ? 'edit' : 'open')
 
   return (
-    <FamilyContainerWithHover onClick={handleOnClick}>
-      <Header family={family} />
+    <NoPrint>
+      <FamilyContainerWithHover onClick={handleOnClick}>
+        <Header family={family} />
 
-      <div>
-        {family.nimi}, {family.sähköposti}
-      </div>
-      <div>
-        Alaikäisiä lapsia: {family.lapset.length}
-      </div>
-      {/* <p>Käyntimäärät: {family.visits.length}</p> */}
-    </FamilyContainerWithHover>
+        <div>
+          {family.nimi}, {family.sähköposti}
+        </div>
+        <div>
+          Alaikäisiä lapsia: {family.lapset.length}
+        </div>
+        {/* <p>Käyntimäärät: {family.visits.length}</p> */}
+      </FamilyContainerWithHover>
+    </NoPrint>
   )
 }
 

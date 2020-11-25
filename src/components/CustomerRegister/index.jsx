@@ -8,6 +8,8 @@ import { useDebounce } from 'use-debounce'
 import FamilyList from '../FamilyList'
 import { compareDesc } from 'date-fns'
 import Statistics from './Statistics'
+import NoPrint from '../NoPrint'
+import Button from '../Button'
 
 const FILTER_PADDING_WIDTH = 30
 const FILTER_PADDING_HEIGHT = 20
@@ -58,26 +60,36 @@ const CustomerRegister = () => {
     dataSheetRows[values.index].save()
   }
   const handleDelete = async (index) => {
-    await dataSheetRows[index].delete()
-    await refetchDataSheetRows()
+    if (window.confirm(`Haluatko poistaa henkilön ${parsedDataSheetRows[index].nimi}?`)) {
+      await dataSheetRows[index].delete()
+      await refetchDataSheetRows()
+    }
   }
 
   return (
     <div>
-      <Statistics families={parsedDataSheetRows} />
+      <NoPrint>
+        <Statistics families={parsedDataSheetRows} />
 
-      <FilterInput
-        value={filter}
-        onChange={({ target }) => setFilter(target.value)}
-        placeholder="Filtteri"
-      />
+        <FilterInput
+          value={filter}
+          onChange={({ target }) => setFilter(target.value)}
+          placeholder="Filtteri"
+        />
+
+        <Button onClick={refetchDataSheetRows}>
+          Päivitä rekisteri
+        </Button>
+        <Button onClick={() => window.print()}>
+          Tulosta avatut asiakkaat
+        </Button>
+
+      </NoPrint>
 
       <FamilyList
         families={filteredRows.sort((family1, family2) => compareDesc(family1.aika, family2.aika))}
         noFamiliesText="Asiakasrekistereitä ei ole löydetty."
         validate={validate}
-        refetchRows={refetchDataSheetRows}
-        refetchText="Päivitä rekisteri"
         handleEditSubmit={handleEditSubmit}
         handleHuomioitavaaSubmit={handleHuomioitavaaSubmit}
         handleDelete={handleDelete}

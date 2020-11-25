@@ -8,6 +8,9 @@ const FamilyEdit = ({ family, validate, onSubmit, setDisplay, isNewForm, onDelet
 
   const initialValues = {
     ...family,
+    // Deep copy
+    aikuiset: family.aikuiset.map(aikuinen => ({ ...aikuinen })),
+    // Deep copy
     lapset: family.lapset.map(lapsi => ({
       ...lapsi,
       syntymäpäivä: format(lapsi.syntymäpäivä, 'yyyy-MM-dd')

@@ -5,9 +5,14 @@ import FamilyContainer from '../FamilyContainer'
 import TableRow from '../../TableRow'
 import Header from '../Header'
 import HuomioitavaaForm from './HuomioitavaaForm'
+import Button from '../../Button'
+import NoPrint from '../../NoPrint'
+import PrintView from './PrintView'
 
 const FamilyOpenContainer = styled(FamilyContainer)`
-  // background-color: rgb(243, 243, 243);
+  @media print {
+    page-break-after: always;
+  }
 `
 const Part = styled.div`
   margin: 20px 0;
@@ -41,6 +46,8 @@ const NotificationSuccess = styled.div`
 `
 
 const FamilyOpen = ({ family, setDisplay, onSubmit }) => {
+  console.log(family)
+
   const [huomioitavaaMessage, setHuomioitavaaMessage] = useState('')
 
   const handleSubmit = (values) => {
@@ -54,90 +61,93 @@ const FamilyOpen = ({ family, setDisplay, onSubmit }) => {
 
   return (
     <FamilyOpenContainer>
-      <Header family={family} />
+      <NoPrint>
+        <Header family={family} />
 
-      <button onClick={() => setDisplay('close')}>
-        Sulje
-      </button>
-      <button onClick={() => setDisplay('edit')}>
-        Muokkaa
-      </button>
+        <Button onClick={() => setDisplay('close')}>
+          Sulje
+        </Button>
+        <Button onClick={() => setDisplay('edit')}>
+          Muokkaa
+        </Button>
 
-      <Part>
-        <table>
-          <tbody>
-            <TableRow rowsAreSpaced label="Sähköposti">
-              {family.sähköposti}
-            </TableRow>
-            <TableRow rowsAreSpaced label="Nimi">
-              {family.nimi}
-            </TableRow>
-            <TableRow rowsAreSpaced label="Syntymävuosi">
-              {family.syntymävuosi}
-            </TableRow>
-            <TableRow rowsAreSpaced label="Osoite">
-              {family.osoite}
-            </TableRow>
-            {Boolean(family.puhelinnumero) &&
-              <TableRow rowsAreSpaced label="Puhelinnumero">
-                {family.puhelinnumero}
+        <Part>
+          <table>
+            <tbody>
+              <TableRow rowsAreSpaced label="Sähköposti">
+                {family.sähköposti}
               </TableRow>
-            }
-            {Boolean(family.ilvestappara) &&
-              <TableRow rowsAreSpaced label="Ilves tai Tappara">
-                {family.ilvestappara}
+              <TableRow rowsAreSpaced label="Nimi">
+                {family.nimi}
               </TableRow>
-            }
-            <tr>
-              <th colSpan="2">
-              Elämäntilanne:
-              </th>
-            </tr>
-            <tr>
-              <td colSpan="2">
-                <P>{family.elämäntilanne}</P>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </Part>
+              <TableRow rowsAreSpaced label="Syntymävuosi">
+                {family.syntymävuosi}
+              </TableRow>
+              <TableRow rowsAreSpaced label="Osoite">
+                {family.osoite}
+              </TableRow>
+              {Boolean(family.puhelinnumero) &&
+                <TableRow rowsAreSpaced label="Puhelinnumero">
+                  {family.puhelinnumero}
+                </TableRow>
+              }
+              {Boolean(family.ilvestappara) &&
+                <TableRow rowsAreSpaced label="Ilves vai Tappara">
+                  {family.ilvestappara}
+                </TableRow>
+              }
+              <tr>
+                <th colSpan="2">
+                Elämäntilanne:
+                </th>
+              </tr>
+              <tr>
+                <td colSpan="2">
+                  <P>{family.elämäntilanne}</P>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </Part>
 
-      <Part>
-        <b>Aikuiset ({family.aikuiset.length})</b>
-        {family.aikuiset.length > 0 &&
-          <Ul>
-            {family.aikuiset.map(aikuinen =>
-              <Li key={aikuinen.id}>{aikuinen.nimi}</Li>
-            )}
-          </Ul>
+        <Part>
+          <b>Täysi-ikäiset ({family.aikuiset.length})</b>
+          {family.aikuiset.length > 0 &&
+            <Ul>
+              {family.aikuiset.map(aikuinen =>
+                <Li key={aikuinen.id}>{aikuinen.nimi}</Li>
+              )}
+            </Ul>
+          }
+        </Part>
+
+        <Part>
+          <b>Lapset ({family.lapset.length})</b>
+          {family.lapset.length > 0 &&
+            <LapsiFlexParent>
+              {family.lapset.map(lapsi =>
+                <LapsiFlexChild key={lapsi.id}>
+                  <Child child={lapsi} />
+                </LapsiFlexChild>
+              )}
+            </LapsiFlexParent>
+          }
+        </Part>
+
+        <HuomioitavaaForm
+          initialValues={{
+            index: family.index,
+            huomioitavaa: family.huomioitavaa
+          }}
+          onSubmit={handleSubmit}
+        />
+        {huomioitavaaMessage &&
+          <NotificationSuccess>
+            {huomioitavaaMessage}
+          </NotificationSuccess>
         }
-      </Part>
-
-      <Part>
-        <b>Lapset ({family.lapset.length})</b>
-        {family.lapset.length > 0 &&
-          <LapsiFlexParent>
-            {family.lapset.map(lapsi =>
-              <LapsiFlexChild key={lapsi.id}>
-                <Child child={lapsi} />
-              </LapsiFlexChild>
-            )}
-          </LapsiFlexParent>
-        }
-      </Part>
-
-      <HuomioitavaaForm
-        initialValues={{
-          index: family.index,
-          huomioitavaa: family.huomioitavaa
-        }}
-        onSubmit={handleSubmit}
-      />
-      {huomioitavaaMessage &&
-        <NotificationSuccess>
-          {huomioitavaaMessage}
-        </NotificationSuccess>
-      }
+      </NoPrint>
+      <PrintView family={family} />
     </FamilyOpenContainer>
   )
 }

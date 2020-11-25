@@ -1,6 +1,7 @@
 import React from 'react'
 import { Formik } from 'formik'
 import FormikInput from '../../FormikInput'
+import Button from '../../Button'
 
 const HuomioitavaaForm = ({ initialValues, onSubmit }) => {
   return (
@@ -11,8 +12,12 @@ const HuomioitavaaForm = ({ initialValues, onSubmit }) => {
       {({ handleSubmit }) => (
         <>
           <b>Huomioitavaa:</b>
-          <FormikInput name="huomioitavaa" />
-          <button onClick={handleSubmit} type="submit">Päivitä</button>
+          <FormikInput
+            name="huomioitavaa"
+            type="textarea"
+            rows={4}
+          />
+          <Button onClick={handleSubmit} type="submit">Päivitä</Button>
         </>
       )}
     </Formik>

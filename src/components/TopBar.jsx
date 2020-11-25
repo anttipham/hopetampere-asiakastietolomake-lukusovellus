@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import NoPrint from './NoPrint'
 
 const TopBarContainer = styled.div`
   margin: 0 auto;
@@ -34,10 +35,12 @@ const Tab = ({ ...props }) => {
 
 const TopBar = () => {
   return (
-    <TopBarContainer>
-      <Tab to="/">Lomakkeiden tarkistus</Tab>
-      <Tab to="/customerregister">Asiakasrekisteri</Tab>
-    </TopBarContainer>
+    <NoPrint>
+      <TopBarContainer>
+        <Tab to="/">Lomakkeiden tarkistus</Tab>
+        <Tab to="/customerregister">Asiakasrekisteri</Tab>
+      </TopBarContainer>
+    </NoPrint>
   )
 }
 

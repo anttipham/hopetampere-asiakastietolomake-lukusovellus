@@ -13,20 +13,9 @@ th {
   text-align: left;
 }
 
-button {
-  padding: 5px 8px;
-  margin: 5px;
-  border-radius: 10px;
-  border-width: 1px;
-  background-color: rgb(245, 245, 245);
-  outline: none;
-}
-button:hover {
-  background-color: rgb(239, 239, 239);
-}
-
 .test {
   text-align: left;
   border: 1px ;
   resize: vertical;
+  
 }

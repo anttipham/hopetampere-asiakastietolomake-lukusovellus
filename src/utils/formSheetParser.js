@@ -10,17 +10,35 @@ const parseDate = (dateString) => {
   return parsedDate
 }
 
+const parseTyyppi = (tyyppiString) => {
+  switch (tyyppiString) {
+    case 'Asiakaskäyntiä':
+      return 'Asiakaskäynti'
+    case 'Harrastustukihakemusta':
+      return 'Harrastustukihakemus'
+    case 'Asiakaskäyntiä, Harrastustukihakemusta':
+      return 'Asiakaskäynti, Harrastustukihakemus'
+    default:
+      return tyyppiString
+  }
+}
+
 const parseAikuiset = (aikuisetString) => {
   if (!aikuisetString) {
     return []
   }
-  let aikuiset = aikuisetString.split(/,| ja /g)
-  aikuiset = aikuiset.map(aikuinen => aikuinen.trim())
-  aikuiset = aikuiset.filter(aikuinen => aikuinen)
-  aikuiset = aikuiset.map(aikuinen => ({
-    id: uuid(),
-    nimi: aikuinen
-  }))
+  let aikuiset = aikuisetString.split(/,| ja /)
+  aikuiset = aikuiset.map(aikuinenString => {
+    const aikuinen = aikuinenString.split(/\(|\)/)
+    const nimi = aikuinen[0].trim()
+    const syntymävuosi = aikuinen[1].trim()
+
+    return {
+      id: uuid(),
+      nimi,
+      syntymävuosi
+    }
+  })
   return aikuiset
 }
 
@@ -50,15 +68,15 @@ const formSheetParser = (formData) => {
 
   const data = {
     aika: parseDate(formData['Aikaleima']),
-    tyyppi: formData['Yhteydenottoni koskee seuraavia'].trim(),
+    tyyppi: parseTyyppi(formData['Yhteydenottoni koskee']),
     sähköposti: formData['Sähköpostiosoite'].trim(),
-    nimi: formData['Huoltajan koko nimi'].trim(),
+    nimi: formData['Huoltajan nimi'].trim(),
     syntymävuosi: formData['Huoltajan syntymävuosi'].trim(),
     osoite: formData['Osoite, postinumero ja postitoimipaikka'].trim(),
     puhelinnumero: formData['Puhelinnumero'].trim(),
     elämäntilanne: formData['Elämäntilanne'].trim(),
-    ilvestappara: formData['Ilves tai Tappara'].trim(),
-    aikuiset: parseAikuiset(formData['Kaikkien muiden taloudessa asuvien täysi-ikäisten koko nimi']),
+    ilvestappara: formData['Ilves vai Tappara'].trim(),
+    aikuiset: parseAikuiset(formData['Kaikkien muiden taloudessa asuvien täysi-ikäisten koko nimi ja syntymävuosi']),
     lapset: parseLapset(formData),
     huomioitavaa: '',
     tarkistettu: formData['Tarkistettu'],

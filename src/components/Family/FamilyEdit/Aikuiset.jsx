@@ -3,22 +3,28 @@ import { FieldArray } from 'formik'
 import styled from 'styled-components'
 import { v4 } from 'uuid'
 import FormikInput from '../../FormikInput'
+import SmallButton from '../../SmallButton'
 
-const Ul = styled.ul`
+const LapsiFlexParent = styled.div`
   display: flex;
   flex-wrap: wrap;
-  list-style: none;
-  padding: 0 20px;
+  flex-direction: row;
 `
-const Li = styled.li`
-  text-align: left;
-  padding: 5px 15px;
+const LapsiFlexChild = styled.div`
+  width: calc(100% / 3 - 20px);
+  min-width: 200px;
+  padding: 10px;
 `
-const Button = styled.button`
-  padding: 3px;
-  margin: 0 2px;
-  border-radius: 4px;
-`
+const nameStyle = {
+  width: 'calc(60% - 12px)',
+  borderTopRightRadius: 0,
+  borderBottomRightRadius: 0
+}
+const ageStyle = {
+  width: 'calc(40% - 12px)',
+  borderTopLeftRadius: 0,
+  borderBottomLeftRadius: 0
+}
 
 const Aikuiset = ({ name, values }) => {
   const [amount, setAmount] = useState(values[name].length)
@@ -37,6 +43,7 @@ const Aikuiset = ({ name, values }) => {
     values.aikuiset.push({
       id: v4(),
       nimi: '',
+      syntymävuosi: ''
     })
   }
   while (values.aikuiset.length > amount) {
@@ -47,9 +54,21 @@ const Aikuiset = ({ name, values }) => {
   const aikuiset = []
   for (let i = 0; i < values.aikuiset.length; i++) {
     aikuiset.push(
-      <Li key={values.aikuiset[i].id}>
-        <FormikInput name={`aikuiset.${i}.nimi`} />
-      </Li>
+      <LapsiFlexChild key={values.aikuiset[i].id}>
+        <>
+          <FormikInput
+            style={nameStyle}
+            name={`aikuiset.${i}.nimi`}
+            placeholder="Nimi"
+          />
+          <FormikInput
+            style={ageStyle}
+            name={`aikuiset.${i}.syntymävuosi`}
+            placeholder="Syntymävuosi"
+            type="number"
+          />
+        </>
+      </LapsiFlexChild>
     )
   }
 
@@ -60,17 +79,18 @@ const Aikuiset = ({ name, values }) => {
         return (
           <>
             <div>
-              <b>Aikuiset ({amount})</b>
-              <Button onClick={decrementAmount}>
+              <b>Täysi-ikäiset ({amount})</b>
+              <SmallButton onClick={decrementAmount}>
                 -1
-              </Button>
-              <Button onClick={incrementAmount}>
+              </SmallButton>
+              <SmallButton onClick={incrementAmount}>
                 +1
-              </Button>
+              </SmallButton>
             </div>
-            <Ul>
+
+            <LapsiFlexParent>
               {aikuiset}
-            </Ul>
+            </LapsiFlexParent>
           </>
         )
       }}

@@ -15,6 +15,10 @@ const style = `
   &:focus {
     background-color: white;
   }
+
+  @media print {
+    display: none;
+  }
 `
 
 export const Input = styled.input`

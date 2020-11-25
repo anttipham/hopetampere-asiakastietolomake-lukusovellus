@@ -1,7 +1,9 @@
 import { format } from 'date-fns'
+import calcAge from './calcAge'
 
 // Apufuntiot
 const trimAndLowerCase = (string) => string.toLowerCase().trim()
+
 const formatBirthday = (date) => {
   if (typeof date === 'string') {
     return date
@@ -10,37 +12,54 @@ const formatBirthday = (date) => {
   }
 }
 
+/** Tarkistaa, onko set1 osajoukko set2:sta */
+const isSubset = (set1, set2, isSame) => {
+  for (const member1 of set1) {
+    // Jos child1 ei ole joukossa children2, children1 ei ole osajoukko children2:sta
+    if (!set2.some(member2 => isSame(member1, member2))) {
+      return false
+    }
+  }
+  return true
+}
+
+/**
+ * Tarkistaa, onko family osajoukko otherFamily:stä
+ * @param family Asiakasperhe, jonka aikuiset tarkistetaan
+ * @param otherFamily Asiakasperhe, jonka aikuiset verrataan
+ */
+const isSubsetAdults = (family, otherFamily) => {
+  const parseAdultsFromFamily = (family) => ([
+    {
+      nimi: family.nimi,
+      syntymävuosi: family.syntymävuosi
+    },
+    ...family.aikuiset
+  ])
+
+  const adults1 = parseAdultsFromFamily(family)
+  const adults2 = parseAdultsFromFamily(otherFamily)
+
+  const isSameAdult = (adult1, adult2) =>
+    trimAndLowerCase(adult1.nimi) === trimAndLowerCase(adult2.nimi)
+    && Number(adult1.syntymävuosi) === Number(adult2.syntymävuosi)
+
+  return isSubset(adults1, adults2, isSameAdult) || isSubset(adults2, adults1, isSameAdult)
+}
+
 /** Tarkistaa, ovatko lapsijoukot samat. */
 const sameChildren = (children1, children2) => {
   if (children1.length !== children2.length) {
     return false
   }
 
-  // console.log(5555)
-  // console.log(1, children1)
-  // console.log(2, children2)
-
   const isSameChild = (child1, child2) => {
-    // console.log(6666)
-    // console.log(1, child1)
-    // console.log(2, child2)
     return child1.sukupuoli === child2.sukupuoli
       && formatBirthday(child1.syntymäpäivä) === formatBirthday(child2.syntymäpäivä)
   }
 
-  /** Tarkistaa, onko children1 osajoukko children2:sta */
-  const isSubset = (children1, children2) => {
-    for (const child1 of children1) {
-      // Jos child1 ei ole joukossa children2, children1 ei ole osajoukko children2:sta
-      if (!children2.some(child2 => isSameChild(child1, child2))) {
-        return false
-      }
-    }
-    return true
-  }
-
   // Ovat samat joukot, jos molemmat ovat toistensa osajoukkoja
-  return isSubset(children1, children2) && isSubset(children2, children1)
+  return isSubset(children1, children2, isSameChild) && isSubset(children2, children1, isSameChild)
 }
 
 /**
@@ -58,36 +77,40 @@ const formValidationError = (newFamily, families) => {
     errors.push('Lomakkeen lähettäjä on alaikäinen!')
   }
 
+  newFamily.lapset.some(lapsi => {
+    if (calcAge(lapsi.syntymäpäivä) >= 18) {
+      errors.push('Lomakkeen lapsikentässä on täysi-ikäinen!')
+      return true
+    } else {
+      return false
+    }
+  })
+
   // Tarkistukset, jotka liittyvät muihin perheisiin
   for (const family of families) {
     if (trimAndLowerCase(newFamily.sähköposti) === trimAndLowerCase(family.sähköposti)) {
-      errors.push(`Rekisterissä on jo sähköposti ${family.sähköposti}!`)
-    }
-
-    if (
-      trimAndLowerCase(newFamily.nimi) === trimAndLowerCase(family.nimi)
-      && Number(newFamily.syntymävuosi) === Number(family.syntymävuosi)
-    ) {
-      errors.push(`Rekisterissä on henkilö ${family.nimi}, joka on syntynyt vuonna ${family.syntymävuosi}!`)
+      errors.push(`Rekisterissä on asiakas ${family.nimi}, jonka sähköpostiosoite on ${family.sähköposti}!`)
     }
 
     if (trimAndLowerCase(newFamily.osoite) === trimAndLowerCase(family.osoite)) {
-      errors.push(`Rekisterissä on jo osoite ${family.osoite}!`)
+      errors.push(`Rekisterissä on asiakas ${family.nimi} (${family.sähköposti}), jonka osoite on ${family.osoite}!`)
     }
 
-    if (
-      newFamily.puhelinnumero
-      && newFamily.puhelinnumero === family.puhelinnumero
-    ) {
-      errors.push(`Rekisterissä on jo puhelinnumero ${family.puhelinnumero}!`)
+    if (newFamily.puhelinnumero && newFamily.puhelinnumero === family.puhelinnumero) {
+      errors.push(`Rekisterissä on asiakas ${family.nimi} (${family.sähköposti}), jonka puhelinnumero on ${family.puhelinnumero}!`)
+    }
+
+    if (isSubsetAdults(newFamily, family) || isSubsetAdults(family, newFamily)) {
+      errors.push(`Rekisterissä on asiakas ${family.nimi} (${family.sähköposti}), jonka täysi-ikäiset ovat samankaltaisia tämän kanssa!`)
     }
 
     if (sameChildren(newFamily.lapset, family.lapset)) {
-      errors.push(`Rekisterissä on henkilö ${family.nimi}, jonka lapsien syntymäpäivät, sukupuolet ja määrät ovat tismalleen samat tämän kanssa!`)
+      errors.push(`Rekisterissä on asiakas ${family.nimi} (${family.sähköposti}), jonka lapsien syntymäpäivät, sukupuolet ja määrät ovat tismalleen samat tämän kanssa!`)
     }
   }
 
-  return errors
+  // Virheen nimi laitetaan key-proppiin, joten ei saa olla toistoja. Hashset poistaa toistot.
+  return [...new Set(errors)]
 }
 
 export default formValidationError

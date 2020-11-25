@@ -1,28 +1,46 @@
-- validointi postiosoitteelle
-- kenkäkokoon validointi
+Antin kehittämä sovellus, joka lukee Google Formsin asiakaslomakkeita ja antaa intuitiivisemman tavan lukea lomakkeiden tietoja.
 
+TODO:
+Syntymävuosi perään
+Varmistus poistamiseen
 
 Lomaketiedot:
   Sähköposti
+  *Yhteydenottotyyppi
   Huoltaja:
-    Kokonimi
+    *Kokonimi
     Syntymävuosi
   Postiosoite
   Puhelinnumero
 
-  Taloudessa asuvat täysikäiset
+
+  *Taloudessa asuvat täysi-ikäiset
+    nimi
+    syntymävuosi
+
   Huollettavat alaikäiset lapset
     Sukupuoli
     Syntymäpäivä
     Vaatekoko
     Kenkäkoko
     Kiinnostuksen kohteet
+    *erityislapsi
 
   Elämäntilanne
-  Ilves/Tappara
+  *Ilves/Tappara
 
 Omat tiedot:
   Huomioitavaa
+
+
+Tulostus:
+  Nimi
+  Sähköposti
+  Lasten määrä
+  Taloudessa asuvien täysi-ikäisten määrä
+
+  -Teksti-
+  Allekirjoituskenttä
 
 # Getting Started with Create React App
 

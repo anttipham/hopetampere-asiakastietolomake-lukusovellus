@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Family from './Family'
 import { useBottomScrollListener } from 'react-bottom-scroll-listener'
 import styled from 'styled-components'
+import NoPrint from './NoPrint'
 
 const DISPLAY_AMOUNT = 15
 
@@ -16,8 +17,6 @@ const FamilyList = ({
   families,
   noFamiliesText,
   validate,
-  refetchRows,
-  refetchText,
   handleEditSubmit,
   handleHuomioitavaaSubmit,
   handleDelete,
@@ -28,11 +27,11 @@ const FamilyList = ({
 
   return (
     <div>
-      <button onClick={refetchRows}>{refetchText}</button>
-
-      {families.length === 0 &&
-        <BigText>{noFamiliesText}</BigText>
-      }
+      <NoPrint>
+        {families.length === 0 &&
+          <BigText>{noFamiliesText}</BigText>
+        }
+      </NoPrint>
 
       {families
         .slice(0, displayAmount)
@@ -49,9 +48,11 @@ const FamilyList = ({
         )
       }
 
-      {families.length > displayAmount &&
-        <BigText>+ {families.length - displayAmount}</BigText>
-      }
+      <NoPrint>
+        {families.length > displayAmount &&
+          <BigText>+ {families.length - displayAmount}</BigText>
+        }
+      </NoPrint>
     </div>
   )
 }

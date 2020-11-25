@@ -3,6 +3,7 @@ import { FieldArray } from 'formik'
 import Lapsi from './Lapsi'
 import styled from 'styled-components'
 import { v4 } from 'uuid'
+import SmallButton from '../../SmallButton'
 
 const LapsiFlexParent = styled.div`
   display: flex;
@@ -13,12 +14,6 @@ const LapsiFlexChild = styled.div`
   width: calc(100% / 3);
   min-width: 325px;
 `
-const Button = styled.button`
-  padding: 3px;
-  margin: 0 2px;
-  border-radius: 4px;
-`
-
 const Lapset = ({ name, values }) => {
   const [amount, setAmount] = useState(values[name].length)
 
@@ -67,12 +62,12 @@ const Lapset = ({ name, values }) => {
           <>
             <div>
               <b>Lapset ({amount})</b>
-              <Button onClick={decrementAmount}>
+              <SmallButton onClick={decrementAmount}>
                 -1
-              </Button>
-              <Button onClick={incrementAmount}>
+              </SmallButton>
+              <SmallButton onClick={incrementAmount}>
                 +1
-              </Button>
+              </SmallButton>
             </div>
             <LapsiFlexParent>
               {lapset}

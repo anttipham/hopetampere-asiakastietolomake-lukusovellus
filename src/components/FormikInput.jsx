@@ -7,14 +7,14 @@ const ErrorText = styled.div`
   color: red;
 `
 
-const FormikInput = ({ name, type, rows, style }) => {
+const FormikInput = ({ name, type, ...props }) => {
   const [field, meta] = useField(name)
 
   return (
     <>
       {type === 'textarea'
-        ? <Textarea {...field} rows={rows} style={style} />
-        : <Input {...field} type={type} style={style} />
+        ? <Textarea {...field} {...props} />
+        : <Input {...field} type={type} {...props} />
       }
       {meta.error && meta.touched &&
         <ErrorText>{meta.error}</ErrorText>

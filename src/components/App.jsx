@@ -12,8 +12,12 @@ const Container = styled.div`
   max-width: 1100px;
 `
 const Content = styled.div`
-  padding: 10px 2%;
+  padding: 10px 20px;
   background-color: rgba(35, 185, 215, 0.3);
+
+  @media print {
+    background-color: white;
+  }
 `
 
 const App = () => {

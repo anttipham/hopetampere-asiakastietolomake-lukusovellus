@@ -1,8 +1,10 @@
 import React from 'react'
 import { parse, compareAsc } from 'date-fns'
-import { useFormSheet, useDataSheet } from '../../hooks/useSheets'
-import formValidationError from '../../utils/formValidationError'
-import FamilyList from '../FamilyList'
+import { useFormSheet, useDataSheet } from '../hooks/useSheets'
+import formValidationError from '../utils/formValidationError'
+import FamilyList from './FamilyList'
+import Button from './Button'
+import NoPrint from './NoPrint'
 
 const NewForms = () => {
   const { rowCell, formSheetRows, parsedFormSheetRows, refetchFormSheetRows } = useFormSheet()
@@ -37,10 +39,11 @@ const NewForms = () => {
 
   const handleSubmit = async (values) => {
     try {
-      // formSheetistä ei pysty poistamaan, joten lisätään Tarkistettu-kenttään ruksi
-      await removeRow(values.index)
-
       const promises = []
+
+      // formSheetistä ei pysty poistamaan, joten lisätään Tarkistettu-kenttään ruksi
+      promises.push(removeRow(values.index))
+
       // kirjoita dataSheetiin
       promises.push(dataSheet.addRow({
         aika: values.aika,
@@ -68,23 +71,29 @@ const NewForms = () => {
     }
   }
   const handleDelete = async (index) => {
-    await removeRow(index)
-    await refetch()
+    if (window.confirm(`Haluatko poistaa henkilön ${parsedFormSheetRows[index].nimi}?`)) {
+      await removeRow(index)
+      await refetch()
+    }
   }
 
   return (
     <div>
       <p>
         Tässä näkymässä tarkistetaan asiakkaiden lähettämiä lomakkeita.
-        Lomakkeiden hyväksymisen jälkeen asiakas lisätään asiakasrekisteriin.
+        Kun tallennat muutokset tässä näkymässä, lomake siirretään asiakasrekisteriin.
       </p>
+
+      <NoPrint>
+        <Button onClick={refetch}>
+          Päivitä vastaanotetut lomakkeet
+        </Button>
+      </NoPrint>
 
       <FamilyList
         families={parsedFormSheetRows.sort((family1, family2) => compareAsc(family1.aika, family2.aika))}
         noFamiliesText="Uusia lomakkeita ei ole löydetty."
         validate={validate}
-        refetchRows={refetch}
-        refetchText="Päivitä vastaanotetut lomakkeet"
         handleEditSubmit={handleSubmit}
         handleDelete={handleDelete}
         isNewForm
