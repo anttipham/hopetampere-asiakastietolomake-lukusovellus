@@ -1,46 +1,6 @@
-Antin kehittämä sovellus, joka lukee Google Formsin asiakaslomakkeita ja antaa intuitiivisemman tavan lukea lomakkeiden tietoja.
+Antin kehittämä sovellus, joka lukee Hope Tampereen Google Formsin asiakaslomakkeita ja antaa intuitiivisemman tavan lukea lomakkeiden tietoja.
 
-TODO:
-Syntymävuosi perään
-Varmistus poistamiseen
-
-Lomaketiedot:
-  Sähköposti
-  *Yhteydenottotyyppi
-  Huoltaja:
-    *Kokonimi
-    Syntymävuosi
-  Postiosoite
-  Puhelinnumero
-
-
-  *Taloudessa asuvat täysi-ikäiset
-    nimi
-    syntymävuosi
-
-  Huollettavat alaikäiset lapset
-    Sukupuoli
-    Syntymäpäivä
-    Vaatekoko
-    Kenkäkoko
-    Kiinnostuksen kohteet
-    *erityislapsi
-
-  Elämäntilanne
-  *Ilves/Tappara
-
-Omat tiedot:
-  Huomioitavaa
-
-
-Tulostus:
-  Nimi
-  Sähköposti
-  Lasten määrä
-  Taloudessa asuvien täysi-ikäisten määrä
-
-  -Teksti-
-  Allekirjoituskenttä
+Jotta voisit käyttää ohjelmaa, sinun täytyy luoda _Service Account_ Googleen ja laittaa Service Accountin tiedot ./public/config.js tiedostoon.
 
 # Getting Started with Create React App
 
