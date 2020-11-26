@@ -22,11 +22,31 @@ const Child = ({ child }) => {
     <Container>
       <table>
         <tbody>
-          <TableRow label="Sukupuoli">{child.sukupuoli}</TableRow>
-          <TableRow label="Syntymäpäivä">{child.syntymäpäivä.toLocaleDateString()}</TableRow>
-          <TableRow label="Ikä">{calcAge(child.syntymäpäivä)}</TableRow>
-          <TableRow label="Vaatekoko">{child.vaatekoko}</TableRow>
-          <TableRow label="Kenkäkoko">{child.kenkäkoko}</TableRow>
+          <TableRow label="Sukupuoli">
+            <P>
+              {child.sukupuoli}
+            </P>
+          </TableRow>
+          <TableRow label="Syntymäpäivä">
+            <P>
+              {child.syntymäpäivä.toLocaleDateString()}
+            </P>
+          </TableRow>
+          <TableRow label="Ikä">
+            <P>
+              {calcAge(child.syntymäpäivä)}
+            </P>
+          </TableRow>
+          <TableRow label="Vaatekoko">
+            <P>
+              {child.vaatekoko}
+            </P>
+          </TableRow>
+          <TableRow label="Kenkäkoko">
+            <P>
+              {child.kenkäkoko}
+            </P>
+          </TableRow>
           <tr>
             <th colSpan="2">
               Kiinnostuksen kohteet:

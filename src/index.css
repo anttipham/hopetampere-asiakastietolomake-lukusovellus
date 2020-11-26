@@ -17,5 +17,6 @@ th {
   text-align: left;
   border: 1px ;
   resize: vertical;
-  
+  vertical-align: middle;
+  word-break: keep-all;
 }

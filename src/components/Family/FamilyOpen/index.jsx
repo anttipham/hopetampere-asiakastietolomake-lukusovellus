@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import Child from './Child'
+import Child from './Lapsi'
 import FamilyContainer from '../FamilyContainer'
 import TableRow from '../../TableRow'
 import Header from '../Header'
@@ -8,6 +8,8 @@ import HuomioitavaaForm from './HuomioitavaaForm'
 import Button from '../../Button'
 import NoPrint from '../../NoPrint'
 import PrintView from './PrintView'
+import Flexbox from '../../Flexbox'
+import Aikuinen from './Aikuinen'
 
 const FamilyOpenContainer = styled(FamilyContainer)`
   @media print {
@@ -21,37 +23,15 @@ const P = styled.p`
   margin: 0;
   word-wrap: break-word;
 `
-const Ul = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  padding: 0 20px;
-`
-const Li = styled.li`
-  text-align: left;
-  padding: 5px 15px;
-`
-const LapsiFlexParent = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: stretch;
-`
-const LapsiFlexChild = styled.div`
-  width: calc(100% / 3);
-  min-width: 230px;
-`
 const NotificationSuccess = styled.div`
   color: green;
 `
 
 const FamilyOpen = ({ family, setDisplay, onSubmit }) => {
-  console.log(family)
-
   const [huomioitavaaMessage, setHuomioitavaaMessage] = useState('')
 
-  const handleSubmit = (values) => {
-    onSubmit(values)
+  const handleSubmit = async (values) => {
+    await onSubmit(values)
 
     setHuomioitavaaMessage('Päivitetty')
     setTimeout(() => {
@@ -113,24 +93,27 @@ const FamilyOpen = ({ family, setDisplay, onSubmit }) => {
         <Part>
           <b>Täysi-ikäiset ({family.aikuiset.length})</b>
           {family.aikuiset.length > 0 &&
-            <Ul>
+            <Flexbox minWidth="230px">
               {family.aikuiset.map(aikuinen =>
-                <Li key={aikuinen.id}>{aikuinen.nimi}</Li>
+                <Aikuinen key={aikuinen.id} aikuinen={aikuinen} />
               )}
-            </Ul>
+            </Flexbox>
+            // <Ul>
+            //   {family.aikuiset.map(aikuinen =>
+            //     <Li key={aikuinen.id}>{aikuinen.nimi}</Li>
+            //   )}
+            // </Ul>
           }
         </Part>
 
         <Part>
           <b>Lapset ({family.lapset.length})</b>
           {family.lapset.length > 0 &&
-            <LapsiFlexParent>
+            <Flexbox minWidth="230px">
               {family.lapset.map(lapsi =>
-                <LapsiFlexChild key={lapsi.id}>
-                  <Child child={lapsi} />
-                </LapsiFlexChild>
+                <Child key={lapsi.id} child={lapsi} />
               )}
-            </LapsiFlexParent>
+            </Flexbox>
           }
         </Part>
 

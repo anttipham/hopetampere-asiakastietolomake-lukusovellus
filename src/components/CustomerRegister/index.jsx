@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { useDataSheet } from '../../hooks/useSheets'
-import { Input } from '../TextInput'
 import filterFamily from '../../utils/filterFamily'
-import styled from 'styled-components'
 import formValidationError from '../../utils/formValidationError'
 import { useDebounce } from 'use-debounce'
 import FamilyList from '../FamilyList'
@@ -10,16 +8,13 @@ import { compareDesc } from 'date-fns'
 import Statistics from './Statistics'
 import NoPrint from '../NoPrint'
 import Button from '../Button'
+import Filter from './Filter'
+import styled from 'styled-components'
+import Header from './Header'
 
-const FILTER_PADDING_WIDTH = 30
-const FILTER_PADDING_HEIGHT = 20
-const FILTER_HEIGHT = 25
-const FilterInput = styled(Input)`
-  width: calc(100% - ${2*FILTER_PADDING_WIDTH}px);
-  height: ${FILTER_HEIGHT}px;
-  padding: ${FILTER_PADDING_HEIGHT}px ${FILTER_PADDING_WIDTH}px;
-  border-radius: ${(2 * FILTER_PADDING_HEIGHT + FILTER_HEIGHT) / 3}px;
-  outline: none;
+const FlexParent = styled.div`
+  display: flex;
+  align-items: center;
 `
 
 const CustomerRegister = () => {
@@ -55,9 +50,9 @@ const CustomerRegister = () => {
     await family.save()
     await refetchDataSheetRows()
   }
-  const handleHuomioitavaaSubmit = (values) => {
+  const handleHuomioitavaaSubmit = async (values) => {
     dataSheetRows[values.index].huomioitavaa = values.huomioitavaa
-    dataSheetRows[values.index].save()
+    await dataSheetRows[values.index].save()
   }
   const handleDelete = async (index) => {
     if (window.confirm(`Haluatko poistaa henkilön ${parsedDataSheetRows[index].nimi}?`)) {
@@ -69,9 +64,12 @@ const CustomerRegister = () => {
   return (
     <div>
       <NoPrint>
-        <Statistics families={parsedDataSheetRows} />
+        <FlexParent>
+          <Statistics families={parsedDataSheetRows} />
+          <Header />
+        </FlexParent>
 
-        <FilterInput
+        <Filter
           value={filter}
           onChange={({ target }) => setFilter(target.value)}
           placeholder="Filtteri"

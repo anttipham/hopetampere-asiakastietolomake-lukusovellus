@@ -2,16 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { FieldArray } from 'formik'
 import Button from '../../Button'
+import Flexbox from '../../Flexbox'
 
-const FlexParent = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-`
-const FlexChild = styled.div`
-  width: calc(100% / 3);
-  min-width: 325px;
-`
 const SmallButton = styled(Button)`
   padding: 3px;
   margin: 0 2px;
@@ -40,13 +32,9 @@ const FieldArrayInput = ({ values, children, minWidth, name, label, newArrayElem
               </SmallButton>
             </div>
 
-            <FlexParent>
-              {React.Children.map(children, (child) => (
-                <FlexChild style={{ minWidth }}>
-                  {child}
-                </FlexChild>
-              ))}
-            </FlexParent>
+            <Flexbox minWidth={minWidth}>
+              {children}
+            </Flexbox>
           </>
         )
       }}

@@ -1,24 +1,27 @@
 import React from 'react'
 import styled from 'styled-components'
 
+const Th = styled.th`
+  text-align: left;
+`
 const Td = styled.td`
   width: 100%;
 `
-const P = styled.p`
-  margin: 0;
-  word-break: break-all;
+const Header = styled.p`
+  margin: ${props => props.rowsAreSpaced ? '2px 10px 2px 0': '0 10px 0 0'};
+  white-space: nowrap;
 `
 
-const TableRow = ({ label, children, rowsAreSpaced, headerStyle }) => {
-  const style = {
-    padding: rowsAreSpaced ? '5px 10px 5px 0': '0 10px 0 0',
-    ...headerStyle
-  }
+const TableRow = ({ label, children, rowsAreSpaced, dataStyle }) => {
   return (
     <tr>
-      <th style={style}>{label}:</th>
-      <Td>
-        <P>{children}</P>
+      <Th>
+        <Header rowsAreSpaced={rowsAreSpaced}>
+          {label}:
+        </Header>
+      </Th>
+      <Td style={dataStyle}>
+        {children}
       </Td>
     </tr>
   )
