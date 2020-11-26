@@ -11,7 +11,7 @@ import { GoogleSpreadsheet } from 'google-spreadsheet'
 
 const getSheets = async () => {
   // spreadsheet key is the long id in the sheets URL
-  const doc = new GoogleSpreadsheet(config.id)
+  const doc = new GoogleSpreadsheet(config.sheet_id)
 
   // use service account creds
   await doc.useServiceAccountAuth({
@@ -24,16 +24,18 @@ const getSheets = async () => {
     await doc.addSheet({
       headerValues: [
         'aika',
+        'tyyppi',
         'sähköposti',
         'nimi',
         'syntymävuosi',
         'osoite',
         'puhelinnumero',
         'elämäntilanne',
-        'ilvestaitappara',
+        'ilvestappara',
         'aikuiset',
         'lapset',
-        'huomioitavaa'
+        'huomioitavaa',
+        'id',
       ],
       title: 'Sovelluksen tiedot',
       gridProperties: {
