@@ -5,6 +5,7 @@ import formValidationError from '../utils/formValidationError'
 import FamilyList from './FamilyList'
 import Button from './Button'
 import NoPrint from './NoPrint'
+import HeaderText from './HeaderText'
 
 const NewForms = () => {
   const { rowCell, formSheetRows, parsedFormSheetRows, refetchFormSheetRows } = useFormSheet()
@@ -79,12 +80,14 @@ const NewForms = () => {
 
   return (
     <div>
-      <p>
-        Tässä näkymässä tarkistetaan asiakkaiden lähettämiä lomakkeita.
-        Kun tallennat muutokset tässä näkymässä, lomake siirretään asiakasrekisteriin.
-      </p>
-
       <NoPrint>
+        <HeaderText>Vastaanotetut lomakkeet</HeaderText>
+
+        <p>
+          Tässä näkymässä tarkistetaan asiakkaiden lähettämiä lomakkeita.
+          Kun tallennat muutokset tässä näkymässä, lomake siirretään asiakasrekisteriin.
+        </p>
+
         <Button onClick={refetch}>
           Päivitä vastaanotetut lomakkeet
         </Button>

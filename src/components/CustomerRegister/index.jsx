@@ -10,7 +10,8 @@ import NoPrint from '../NoPrint'
 import Button from '../Button'
 import Filter from './Filter'
 import styled from 'styled-components'
-import Header from './Header'
+import Header from './InfoText'
+import HeaderText from '../HeaderText'
 
 const FlexParent = styled.div`
   display: flex;
@@ -64,6 +65,8 @@ const CustomerRegister = () => {
   return (
     <div>
       <NoPrint>
+        <HeaderText>Asiakasrekisteri</HeaderText>
+
         <FlexParent>
           <Statistics families={parsedDataSheetRows} />
           <Header />
