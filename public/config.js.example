@@ -1,0 +1,5 @@
+const config = {
+  sheet_id: 'Sheetsin URL-osoitteesta pitkä id tähän',
+  client_email: 'Service Accountin sähköposti tähän',
+  private_key: 'Sairaan pitkä salasana tähän'
+}
