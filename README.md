@@ -1,3 +1,5 @@
+# Hope Tampere - Asiakastietolomakkeen lukuohjelma
+
 Antin kehittämä sovellus, joka lukee Hope Tampereen Google Formsin asiakaslomakkeita ja antaa intuitiivisemman tavan lukea lomakkeiden tietoja.
 
 Jotta voisit käyttää ohjelmaa, sinun täytyy luoda _Service Account_ Googleen ja laittaa Service Accountin tiedot ./public/config.js tiedostoon.
