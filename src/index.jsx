@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import App from './components/App'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { HashRouter as Router } from 'react-router-dom'
 import getSheets from './utils/getSheets'
 import SheetsContext from './utils/SheetsContext'
 
@@ -10,13 +10,11 @@ import SheetsContext from './utils/SheetsContext'
 
 getSheets().then(sheets => {
   ReactDOM.render(
-    <React.StrictMode>
-      <SheetsContext.Provider value={sheets}>
-        <Router>
-          <App />
-        </Router>
-      </SheetsContext.Provider>
-    </React.StrictMode>,
+    <SheetsContext.Provider value={sheets}>
+      <Router>
+        <App />
+      </Router>
+    </SheetsContext.Provider>,
     document.getElementById('root')
   )
 })
