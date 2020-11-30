@@ -49,7 +49,7 @@ const CustomerRegister = () => {
     // family.id = values.id
 
     await family.save()
-    await refetchDataSheetRows()
+    refetchDataSheetRows()
   }
   const handleHuomioitavaaSubmit = async (values) => {
     dataSheetRows[values.index].huomioitavaa = values.huomioitavaa
