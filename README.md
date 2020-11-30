@@ -5,9 +5,11 @@ Antin kehittämä sovellus, joka lukee Hope Tampereen Google Formsin asiakasloma
 Jotta voisit käyttää lukusovellusta, sinun täytyy
 1. luoda Google Forms -lomake, jossa kysytään seuraavat kysymykset sanatarkkaan:
    - Yhteydenottoni koskee
-     - Kysymysmuodoksi _Valintaruudut_:
-       - Asiakaskäyntiä
-       - Harrastustukihakemusta
+   
+     Kysymysmuodoksi _Valintaruudut_, joissa on vaihtoehtoina:
+     - Asiakaskäyntiä
+     - Harrastustukihakemusta
+     
    - Sähköpostiosoite
    - Huoltajan nimi
    - Huoltajan syntymävuosi
@@ -16,9 +18,12 @@ Jotta voisit käyttää lukusovellusta, sinun täytyy
    - Elämäntilanne
    - Ilves vai Tappara
    - Kaikkien muiden taloudessa asuvien täysi-ikäisten koko nimi ja syntymävuosi
-     - Kenttiin halutaan teksti muodossa `Etunimi1 Sukunimi1 (syntymävuosi1), Etunimi2 Sukunimi2 (syntymävuosi2) ja Etunimi3 Sukunimi3 (syntymävuosi3)`.
-       Koska asiakkaalta vaaditaan tarkkuutta, tähän laitetaan validointi:
-       ⋮ -> Vastauksen vahvistus -> Säännöllinen lauseke -> Vastineet -> `[^\(0-9\),]+\([0-9]{4}\)((,| ja )[^\(0-9\),]+\([0-9]{4}\))*`
+       
+     Kenttiin halutaan teksti muodossa `Etunimi1 Sukunimi1 (syntymävuosi1), Etunimi2 Sukunimi2 (syntymävuosi2) ja Etunimi3 Sukunimi3 (syntymävuosi3)`.
+     
+     Koska asiakkaalta vaaditaan tarkkuutta, tähän laitetaan validointi:
+     
+     ⋮ -> Vastauksen vahvistus -> Säännöllinen lauseke -> Vastineet -> `[^\(0-9\),]+\([0-9]{4}\)((,| ja )[^\(0-9\),]+\([0-9]{4}\))*`
 
    - 1\. lapsen sukupuoli
    - 1\. lapsen syntymäpäivä
@@ -31,6 +36,7 @@ Jotta voisit käyttää lukusovellusta, sinun täytyy
    - 2\. lapsen kenkäkoko
    - 2\. lapsen kiinnostuksen kohteet
    - ⋮
+     
      Lasten syntymäpäiviin laitetaan kysymysmuodoksi Formsissa _Päivämäärä_.
      Lapsikenttiin ei ole mahdollista laittaa dynaamisesti vaihtuvia lapsikenttiä, joten kysymykset täytyy staattisesti kirjoittaa tarpeeksi. (Jospa vain Hopella olisi omat luotettavat palvelimet...)
 
