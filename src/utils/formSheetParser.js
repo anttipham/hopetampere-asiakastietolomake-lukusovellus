@@ -44,10 +44,9 @@ const parseAikuiset = (aikuisetString) => {
 
 const parseLapset = (formData) => {
   const lapset = []
-  for (let i = 1; i <= 12; i++) {
-    if (!formData[`${i}. lapsen syntymäpäivä`]) {
-      continue
-    }
+  let i = 1
+  while (formData[`${i}. lapsen syntymäpäivä`]) {
+    console.log(i, formData[`${i}. lapsen syntymäpäivä`])
     lapset.push({
       id: uuid(),
       sukupuoli: formData[`${i}. lapsen sukupuoli`].trim(),
@@ -56,6 +55,7 @@ const parseLapset = (formData) => {
       kenkäkoko: formData[`${i}. lapsen kenkäkoko`].trim(),
       kiinnostuksenKohteet: formData[`${i}. lapsen kiinnostuksen kohteet`].trim(),
     })
+    i++
   }
 
   return lapset
