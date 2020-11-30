@@ -4,12 +4,12 @@ import { useBottomScrollListener } from 'react-bottom-scroll-listener'
 import styled from 'styled-components'
 import NoPrint from './NoPrint'
 
-const DISPLAY_AMOUNT = 15
+const DISPLAY_AMOUNT = 25
 
 const BigText = styled.h2`
   text-align: center;
   color: rgb(35, 185, 215);
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin: 40px 0;
 `
 
