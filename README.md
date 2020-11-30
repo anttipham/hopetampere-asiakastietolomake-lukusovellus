@@ -4,20 +4,20 @@ Antin kehittämä sovellus, joka lukee Hope Tampereen Google Formsin asiakasloma
 
 Jotta voisit käyttää lukusovellusta, sinun täytyy
 1. luoda Google Forms -lomake, jossa kysytään seuraavat kysymykset sanatarkkaan:
-   - Yhteydenottoni koskee
+   - _Yhteydenottoni koskee_
    
      Kysymysmuodoksi _Valintaruudut_, joissa on vaihtoehtoina:
      - Asiakaskäyntiä
      - Harrastustukihakemusta
      
-   - Sähköpostiosoite
-   - Huoltajan nimi
-   - Huoltajan syntymävuosi
-   - Osoite, postinumero ja postitoimipaikka
-   - Puhelinnumero
-   - Elämäntilanne
-   - Ilves vai Tappara
-   - Kaikkien muiden taloudessa asuvien täysi-ikäisten koko nimi ja syntymävuosi
+   - _Sähköpostiosoite_
+   - _Huoltajan nimi_
+   - _Huoltajan syntymävuosi_
+   - _Osoite, postinumero ja postitoimipaikka_
+   - _Puhelinnumero_
+   - _Elämäntilanne_
+   - _Ilves vai Tappara_
+   - _Kaikkien muiden taloudessa asuvien täysi-ikäisten koko nimi ja syntymävuosi_
        
      Kenttiin halutaan teksti muodossa `Etunimi1 Sukunimi1 (syntymävuosi1), Etunimi2 Sukunimi2 (syntymävuosi2) ja Etunimi3 Sukunimi3 (syntymävuosi3)`.
      
@@ -25,16 +25,16 @@ Jotta voisit käyttää lukusovellusta, sinun täytyy
      
      ⋮ -> Vastauksen vahvistus -> Säännöllinen lauseke -> Vastineet -> `[^\(0-9\),]+\([0-9]{4}\)((,| ja )[^\(0-9\),]+\([0-9]{4}\))*`
 
-   - 1\. lapsen sukupuoli
-   - 1\. lapsen syntymäpäivä
-   - 1\. lapsen vaatekoko
-   - 1\. lapsen kenkäkoko
-   - 1\. lapsen kiinnostuksen kohteet
-   - 2\. lapsen sukupuoli
-   - 2\. lapsen syntymäpäivä
-   - 2\. lapsen vaatekoko
-   - 2\. lapsen kenkäkoko
-   - 2\. lapsen kiinnostuksen kohteet
+   - _1\. lapsen sukupuoli_
+   - _1\. lapsen syntymäpäivä_
+   - _1\. lapsen vaatekoko_
+   - _1\. lapsen kenkäkoko_
+   - _1\. lapsen kiinnostuksen kohteet_
+   - _2\. lapsen sukupuoli_
+   - _2\. lapsen syntymäpäivä_
+   - _2\. lapsen vaatekoko_
+   - _2\. lapsen kenkäkoko_
+   - _2\. lapsen kiinnostuksen kohteet_
    - ⋮
      
      Lasten syntymäpäiviin laitetaan kysymysmuodoksi Formsissa _Päivämäärä_.
