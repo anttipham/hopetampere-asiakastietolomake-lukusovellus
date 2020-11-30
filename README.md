@@ -4,40 +4,39 @@ Antin kehittämä sovellus, joka lukee Hope Tampereen Google Formsin asiakasloma
 
 Jotta voisit käyttää lukusovellusta, sinun täytyy
 1. luoda Google Forms -lomake, jossa kysytään seuraavat kysymykset sanatarkkaan:
-  - Yhteydenottoni koskee
-    Kysymysmuodoksi _Valintaruudut_:
-    - Asiakaskäyntiä
-    - Harrastustukihakemusta
-  - Sähköpostiosoite
-  - Huoltajan nimi
-  - Huoltajan syntymävuosi
-  - Osoite, postinumero ja postitoimipaikka
-  - Puhelinnumero
-  - Elämäntilanne
-  - Ilves vai Tappara
-  - Kaikkien muiden taloudessa asuvien täysi-ikäisten koko nimi ja syntymävuosi
-    Kenttiin halutaan teksti muodossa `Etunimi1 Sukunimi1 (syntymävuosi1), Etunimi2 Sukunimi2 (syntymävuosi2) ja Etunimi3 Sukunimi3 (syntymävuosi3)`.
-    Koska asiakkaalta vaaditaan tarkkuutta, tähän laitetaan validointi:
-    Vastauksen vahvistus -> Säännöllinen lauseke -> Vastineet -> `[^\(0-9\),]+\([0-9]{4}\)((,| ja )[^\(0-9\),]+\([0-9]{4}\))*`
-  
-  - 1. lapsen sukupuoli
-  - 1. lapsen syntymäpäivä
-  - 1. lapsen vaatekoko
-  - 1. lapsen kenkäkoko
-  - 1. lapsen kiinnostuksen kohteet
+   - Yhteydenottoni koskee
+     - Kysymysmuodoksi _Valintaruudut_:
+       - Asiakaskäyntiä
+       - Harrastustukihakemusta
+   - Sähköpostiosoite
+   - Huoltajan nimi
+   - Huoltajan syntymävuosi
+   - Osoite, postinumero ja postitoimipaikka
+   - Puhelinnumero
+   - Elämäntilanne
+   - Ilves vai Tappara
+   - Kaikkien muiden taloudessa asuvien täysi-ikäisten koko nimi ja syntymävuosi
+     - Kenttiin halutaan teksti muodossa `Etunimi1 Sukunimi1 (syntymävuosi1), Etunimi2 Sukunimi2 (syntymävuosi2) ja Etunimi3 Sukunimi3 (syntymävuosi3)`.
+       Koska asiakkaalta vaaditaan tarkkuutta, tähän laitetaan validointi:
+       ⋮ -> Vastauksen vahvistus -> Säännöllinen lauseke -> Vastineet -> `[^\(0-9\),]+\([0-9]{4}\)((,| ja )[^\(0-9\),]+\([0-9]{4}\))*`
 
-  - 2. lapsen sukupuoli
-  - 2. lapsen syntymäpäivä
-  - 2. lapsen vaatekoko
-  - 2. lapsen kenkäkoko
-  - 2. lapsen kiinnostuksen kohteet
-  - ...
-    Lasten syntymäpäiviin laitetaan kysymysmuodoksi Formsissa _Päivämäärä_.
-    Lapsikenttiin ei ole mahdollista laittaa dynaamisesti vaihtuvia lapsikenttiä, joten kysymykset täytyy staattisesti kirjoittaa tarpeeksi. (Jospa vain Hopella olisi omat luotettavat palvelimet...)
+   - 1\. lapsen sukupuoli
+   - 1\. lapsen syntymäpäivä
+   - 1\. lapsen vaatekoko
+   - 1\. lapsen kenkäkoko
+   - 1\. lapsen kiinnostuksen kohteet
+   - 2\. lapsen sukupuoli
+   - 2\. lapsen syntymäpäivä
+   - 2\. lapsen vaatekoko
+   - 2\. lapsen kenkäkoko
+   - 2\. lapsen kiinnostuksen kohteet
+   - ⋮
+     Lasten syntymäpäiviin laitetaan kysymysmuodoksi Formsissa _Päivämäärä_.
+     Lapsikenttiin ei ole mahdollista laittaa dynaamisesti vaihtuvia lapsikenttiä, joten kysymykset täytyy staattisesti kirjoittaa tarpeeksi. (Jospa vain Hopella olisi omat luotettavat palvelimet...)
 
-  Jotkin kysymykset voidaan jättää pois aiheuttamatta virheitä, mm. _Ilves vai Tappara_.
+  Jotkin kysymykset voidaan jättää pois aiheuttamatta virheitä, mm. _Ilves vai Tappara_
 
-2. linkittää Forms-lomake Sheets-tiedostoon. Linkityksen jälkeen Sheetsissä kuuluu olla vain yksi taulukko, eli alareunassa on vain yksi ikkuna.
+2. linkittää Forms-lomake Sheets-tiedostoon. Linkityksen jälkeen Sheetsissä kuuluu olla vain yksi taulukko, eli alareunassa on vain yksi ikkuna
 
 3. luoda _Service Account_ Googleen
 
