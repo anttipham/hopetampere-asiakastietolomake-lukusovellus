@@ -53,7 +53,7 @@ const NewForms = () => {
         nimi: values.nimi,
         syntymävuosi: values.syntymävuosi,
         osoite: values.osoite,
-        puhelinnumero: values.puhelinnumero,
+        puhelinnumero: '\'' + values.puhelinnumero, // heittomerkki pakottaa solun olevan Sheetsissä merkkijono eikä numero
         elämäntilanne: values.elämäntilanne,
         ilvestappara: values.ilvestappara,
         aikuiset: JSON.stringify(values.aikuiset),
