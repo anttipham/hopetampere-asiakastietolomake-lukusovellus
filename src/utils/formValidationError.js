@@ -23,12 +23,8 @@ const isSubset = (set1, set2, isSame) => {
   return true
 }
 
-/**
- * Tarkistaa, onko family osajoukko otherFamily:stä
- * @param family Asiakasperhe, jonka aikuiset tarkistetaan
- * @param otherFamily Asiakasperhe, jonka aikuiset verrataan
- */
-const isSubsetAdults = (family, otherFamily) => {
+/** Tarkistaa, onko family1 osajoukko tai ylijoukko family2:n kanssa */
+const checkAikuisetIsSubsetOrSuperset = (family1, family2) => {
   const parseAdultsFromFamily = (family) => ([
     {
       nimi: family.nimi,
@@ -36,15 +32,23 @@ const isSubsetAdults = (family, otherFamily) => {
     },
     ...family.aikuiset
   ])
+  const adults1 = parseAdultsFromFamily(family1)
+  const adults2 = parseAdultsFromFamily(family2)
 
-  const adults1 = parseAdultsFromFamily(family)
-  const adults2 = parseAdultsFromFamily(otherFamily)
+  // Jos aikuisia on liian vähän, validointi on epätarkka
+  if (adults1.length <= 2 || adults2.length <= 2) {
+    return false
+  }
 
-  const isSameAdult = (adult1, adult2) =>
-    trimAndLowerCase(adult1.nimi) === trimAndLowerCase(adult2.nimi)
-    && Number(adult1.syntymävuosi) === Number(adult2.syntymävuosi)
+  const isSubsetAdults = () => {
+    const isSameAdult = (adult1, adult2) =>
+      trimAndLowerCase(adult1.nimi) === trimAndLowerCase(adult2.nimi)
+      && Number(adult1.syntymävuosi) === Number(adult2.syntymävuosi)
 
-  return isSubset(adults1, adults2, isSameAdult) || isSubset(adults2, adults1, isSameAdult)
+    return isSubset(adults1, adults2, isSameAdult) || isSubset(adults2, adults1, isSameAdult)
+  }
+
+  return isSubsetAdults() || isSubsetAdults()
 }
 
 /** Tarkistaa, ovatko lapsijoukot samat. */
@@ -100,7 +104,8 @@ const formValidationError = (newFamily, families) => {
       errors.push(`Rekisterissä on asiakas ${family.nimi} (${family.sähköposti}), jonka puhelinnumero on ${family.puhelinnumero}!`)
     }
 
-    if (isSubsetAdults(newFamily, family) || isSubsetAdults(family, newFamily)) {
+    // Jos on muita täysi-ikäisiä perheessä, tarkista, onko yhden perheen täysi-ikäiset toisen perheen aikuisten osajoukko
+    if (checkAikuisetIsSubsetOrSuperset(newFamily, family)) {
       errors.push(`Rekisterissä on asiakas ${family.nimi} (${family.sähköposti}), jonka täysi-ikäiset ovat samankaltaisia tämän kanssa!`)
     }
 
