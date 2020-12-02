@@ -46,7 +46,7 @@ const parseLapset = (formData) => {
   const lapset = []
   let i = 1
   while (formData[`${i}. lapsen syntymäpäivä`]) {
-    console.log(i, formData[`${i}. lapsen syntymäpäivä`])
+    // console.log(i, formData[`${i}. lapsen syntymäpäivä`])
     lapset.push({
       id: uuid(),
       sukupuoli: formData[`${i}. lapsen sukupuoli`].trim(),
