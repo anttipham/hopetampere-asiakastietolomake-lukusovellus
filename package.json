@@ -22,7 +22,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && mv build/index.html build/ATL-lukuohjelma.html",
+    "build": "react-scripts build && mv build/index.html build/ATL-lukusovellus.html",
+    "build:zip": "npm run build && mv build ATL-lukusovellus && zip -r 'Pakattu ATL-lukusovellus' ATL-lukusovellus && mv ATL-lukusovellus build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint . --fix"
