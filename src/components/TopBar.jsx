@@ -37,7 +37,7 @@ const TopBar = () => {
   return (
     <NoPrint>
       <TopBarContainer>
-        <Tab to="/">Lomakkeiden tarkistus</Tab>
+        <Tab to="/">Vastaanotetut lomakkeet</Tab>
         <Tab to="/customerregister">Asiakasrekisteri</Tab>
       </TopBarContainer>
     </NoPrint>
