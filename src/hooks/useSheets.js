@@ -24,9 +24,12 @@ const useSheet = (sheetIndex) => {
     if (sheetIndex === 0) {
       await sheet.loadCells(ROWCELL_A1_PLACE)
       const rowCell = sheet.getCellByA1(ROWCELL_A1_PLACE)
-      return setSheetRows(await sheet.getRows({ offset: rowCell.value - 2 })) // Miinus yksi headerin vuoksi ja miinus yksi, koska indeksointi alkaa ykkösestä
+      // Miinus yksi headerin vuoksi ja miinus yksi, koska indeksointi alkaa nollasta eikä ykkösestä
+      setSheetRows(await sheet.getRows({ offset: Math.max(0, rowCell.value - 2) }))
+      return
     } else if (sheetIndex === 1) {
-      return setSheetRows(await sheet.getRows())
+      setSheetRows(await sheet.getRows())
+      return
     }
   }
 
@@ -59,16 +62,28 @@ export const useFormSheet = () => {
   const doc = useContext(SheetsContext)
   const formSheet = doc.sheetsByIndex[0]
 
-  const rowCell = formSheet.getCellByA1(ROWCELL_A1_PLACE)
-
   const wrapperObject = useSheet(0)
 
+  // Päivitetään offset (eli ylin tarkastamattoman rivin paikka) hakemisen yhteydessä
+  const rowCell = formSheet.getCellByA1(ROWCELL_A1_PLACE)
+  const refetchFormSheetRows = async () => {
+    await wrapperObject.refetchSheetRows()
+
+    for (let i = 0; i < wrapperObject.sheetRows.length; i++) {
+      const row = wrapperObject.sheetRows[i]
+      if (!row['Tarkistettu']) {
+        rowCell.value = row.rowIndex
+        await rowCell.save()
+        return
+      }
+    }
+  }
+
   return {
-    rowCell,
     formSheet: wrapperObject.sheet,
     formSheetRows: wrapperObject.sheetRows,
     parsedFormSheetRows: wrapperObject.parsedSheetRows,
-    refetchFormSheetRows: wrapperObject.refetchSheetRows
+    refetchFormSheetRows
   }
 }
 

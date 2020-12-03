@@ -8,7 +8,7 @@ import NoPrint from './NoPrint'
 import HeaderText from './HeaderText'
 
 const NewForms = () => {
-  const { rowCell, formSheetRows, parsedFormSheetRows, refetchFormSheetRows } = useFormSheet()
+  const { formSheetRows, parsedFormSheetRows, refetchFormSheetRows } = useFormSheet()
   const { dataSheet, parsedDataSheetRows, refetchDataSheetRows } = useDataSheet()
 
   const validate = (family) => {
@@ -27,15 +27,15 @@ const NewForms = () => {
     formRow['Tarkistettu'] = 'X'
     await formRow.save()
 
-    // Päivitetään offset (eli ylin tarkastamattoman rivin paikka)
-    for (let i = 0; i < formSheetRows.length; i++) {
-      const row = formSheetRows[i]
-      if (!row['Tarkistettu']) {
-        rowCell.value = row.rowIndex
-        await rowCell.save()
-        return
-      }
-    }
+    // // Päivitetään offset (eli ylin tarkastamattoman rivin paikka)
+    // for (let i = 0; i < formSheetRows.length; i++) {
+    //   const row = formSheetRows[i]
+    //   if (!row['Tarkistettu']) {
+    //     rowCell.value = row.rowIndex
+    //     await rowCell.save()
+    //     return
+    //   }
+    // }
   }
 
   const handleSubmit = async (values) => {
@@ -72,7 +72,7 @@ const NewForms = () => {
     }
   }
   const handleDelete = async (index) => {
-    if (window.confirm(`Haluatko poistaa henkilön ${parsedFormSheetRows[index].nimi}?`)) {
+    if (window.confirm(`Haluatko poistaa henkilön ${parsedFormSheetRows.find(row => row.index === index).nimi}?`)) {
       await removeRow(index)
       await refetch()
     }
