@@ -10,7 +10,6 @@ const FilterInput = styled(Input)`
   height: ${FILTER_HEIGHT}px;
   padding: ${FILTER_PADDING_HEIGHT}px ${FILTER_PADDING_WIDTH}px;
   border-radius: ${(2 * FILTER_PADDING_HEIGHT + FILTER_HEIGHT) / 3}px;
-  outline: none;
 `
 
 const Filter = (props) => {

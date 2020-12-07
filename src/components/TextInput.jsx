@@ -5,8 +5,9 @@ const style = `
   border-width: 1px;
   border-radius: 7px;
   // border-color: rgb(35, 185, 215);
+  outline: none;
   width: calc(100% - 10px);
-  // background-color: rgb(249, 249, 249);
+  background-color: rgb(248, 248, 248);
   font-size: 1em;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -14,6 +15,7 @@ const style = `
 
   &:focus {
     background-color: white;
+    box-shadow: 0 0 0 1px black;
   }
 
   @media print {
