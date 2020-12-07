@@ -15,6 +15,10 @@ const SmallNote = styled.i`
 const Space = styled.div`
   padding-bottom: 25px;
 `
+const SignatureLine = styled.hr`
+  border-color: black;
+  border-bottom: 1px;
+`
 
 const PrintView = ({ family }) => {
   const headerStyle = {
@@ -61,7 +65,7 @@ const PrintView = ({ family }) => {
         Allekirjoitus
       </p>
       <Space />
-      <hr />
+      <SignatureLine />
     </OnPrint>
   )
 }
