@@ -4,6 +4,7 @@ import NewForms from './NewForms'
 import TopBar from './TopBar'
 import styled from 'styled-components'
 import CustomerRegister from './CustomerRegister'
+import Footer from './Footer'
 
 const Container = styled.div`
   margin: 0 auto;
@@ -30,6 +31,8 @@ const App = () => {
           <Route path="/customerregister" component={CustomerRegister} />
           <Route path="/" component={NewForms} />
         </Switch>
+
+        <Footer />
       </Content>
     </Container>
   )
