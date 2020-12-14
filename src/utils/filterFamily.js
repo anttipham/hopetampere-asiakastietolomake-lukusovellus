@@ -1,8 +1,17 @@
 import { format } from 'date-fns'
 
-const formatDateToString = (date) => format(date, 'd.M.y')
+const formatDateToString = (date) => {
+  // On truthy. On Date. Ei ole Invalid Date.
+  if (date && (date instanceof Date) && !isNaN(date)) {
+    return format(date, 'd.M.y')
+  }
+}
 
-const sentenceToWordArray = (sentence) => sentence.toLowerCase().split(/ /g)
+const sentenceToWordArray = (sentence) => {
+  if (typeof sentence === 'string') {
+    return sentence.toLowerCase().split(' ')
+  }
+}
 
 const filterFamily = (filterString, family) => {
   let filterWords = sentenceToWordArray(filterString)

@@ -4,6 +4,12 @@ const dataSheetParser = (data) => {
     syntymäpäivä: new Date(lapsi.syntymäpäivä)
   }))
 
+  lapset.forEach(lapsi => {
+    if (isNaN(lapsi.syntymäpäivä)) {
+      lapsi.syntymäpäivä = new Date(0)
+    }
+  })
+
   return {
     aika: new Date(data.aika),
     tyyppi: data.tyyppi,
