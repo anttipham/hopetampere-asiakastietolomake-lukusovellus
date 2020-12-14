@@ -31,7 +31,7 @@ const CustomerRegister = () => {
   }
 
   const handleEditSubmit = async (values) => {
-    console.log(values)
+    // console.log(values)
     const family = dataSheetRows[values.index]
 
     // family.aika = values.aika.toJSON()

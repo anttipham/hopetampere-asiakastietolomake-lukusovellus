@@ -1,5 +1,4 @@
 import { format } from 'date-fns'
-import calcAge from './calcAge'
 
 // Apufuntiot
 const trimAndLowerCase = (string) => string.toLowerCase().trim()
@@ -77,18 +76,19 @@ const formValidationError = (newFamily, families) => {
   const possibleAge = new Date().getFullYear() - Number(newFamily.syntymävuosi)
   if (possibleAge === 18) {
     errors.push('Lomakkeen lähettäjä on mahdollisesti alaikäinen, jos hän ei ole vielä viettänyt syntymäpäiväänsä tänä vuonna.')
-  } else if (possibleAge < 18) {
-    errors.push('Lomakkeen lähettäjä on alaikäinen!')
   }
+  //  else if (possibleAge < 18) {
+  //   errors.push('Lomakkeen lähettäjä on alaikäinen!')
+  // }
 
-  newFamily.lapset.some(lapsi => {
-    if (calcAge(lapsi.syntymäpäivä) >= 18) {
-      errors.push('Lomakkeen lapsikentässä on täysi-ikäinen!')
-      return true
-    } else {
-      return false
-    }
-  })
+  // newFamily.lapset.some(lapsi => {
+  //   if (calcAge(lapsi.syntymäpäivä) >= 18) {
+  //     errors.push('Lomakkeen lapsikentässä on täysi-ikäinen!')
+  //     return true
+  //   } else {
+  //     return false
+  //   }
+  // })
 
   // Tarkistukset, jotka liittyvät muihin perheisiin
   for (const family of families) {
