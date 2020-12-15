@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import { Input } from '../TextInput'
 
@@ -10,12 +9,7 @@ const FilterInput = styled(Input)`
   height: ${FILTER_HEIGHT}px;
   padding: ${FILTER_PADDING_HEIGHT}px ${FILTER_PADDING_WIDTH}px;
   border-radius: ${(2 * FILTER_PADDING_HEIGHT + FILTER_HEIGHT) / 3}px;
+  font-size: 1.15em;
 `
 
-const Filter = (props) => {
-  return (
-    <FilterInput {...props} />
-  )
-}
-
-export default Filter
+export default FilterInput
