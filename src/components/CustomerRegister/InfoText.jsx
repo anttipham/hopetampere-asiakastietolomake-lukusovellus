@@ -7,7 +7,7 @@ const Header = () => {
           Tässä näkymässä voit katsoa asiakkaita asiakasrekisteristä.
       </p>
       <p>
-          Tulostusnappi tulostaa kaikki asiakkaat, jotka ovat avattuja – eli klikattu kerran auki –
+          Tulostusnappi tulostaa kaikki asiakkaat, jotka ovat avattuja (eli klikattu auki)
           ja näkyvillä jossain kohtaa sivua.
       </p>
       <p>
