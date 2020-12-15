@@ -2,6 +2,8 @@
 
 Antin kehittämä sovellus, joka lukee Hope Tampereen Google Formsin asiakaslomakkeita ja antaa intuitiivisemman tavan lukea lomakkeiden tietoja.
 
+Tarkemmat ohjeet käytönottoon löydät Hopen Drivesta kansiosta Oma Drive/Projektit/Asiakastietolomake. Noudata ATL-sovelluksen käyttöönotto -tiedoston ohjeita.
+
 Jotta voisit käyttää lukusovellusta, sinun täytyy
 1. luoda Google Forms -lomake, jossa kysytään seuraavat kysymykset sanatarkkaan:
    - _Yhteydenottoni koskee_
@@ -35,18 +37,18 @@ Jotta voisit käyttää lukusovellusta, sinun täytyy
    - _2\. lapsen vaatekoko_
    - _2\. lapsen kenkäkoko_
    - _2\. lapsen kiinnostuksen kohteet_
-   - ⋮
+   - ⋮ (niin monta lapsikenttää kuin halutaan)
      
      Lasten syntymäpäiviin laitetaan kysymysmuodoksi Formsissa _Päivämäärä_.
      Lapsikenttiin ei ole mahdollista laittaa dynaamisesti vaihtuvia lapsikenttiä, joten kysymykset täytyy staattisesti kirjoittaa tarpeeksi. (Jospa vain Hopella olisi omat luotettavat palvelimet...)
 
   Jotkin kysymykset voidaan jättää pois aiheuttamatta virheitä, mm. _Ilves vai Tappara_
 
-2. linkittää Forms-lomake Sheets-tiedostoon. Linkityksen jälkeen Sheetsissä kuuluu olla vain yksi taulukko, eli alareunassa on vain yksi ikkuna
+2. luoda _Service Account_ Googleen
 
-3. luoda _Service Account_ Googleen
+3. laittaa Service Accountin tiedot config.js tiedostoon
 
-4. laittaa Service Accountin tiedot ja Sheetsin ID (URL-osoitteessa pisin merkkijonosotku kauttaviivojen (/) välissä) config.js tiedostoon.
+4. seurata README.docx-tiedoston ohjeita.
 
 # Getting Started with Create React App
 
