@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Family from './Family'
 import { useBottomScrollListener } from 'react-bottom-scroll-listener'
 import styled from 'styled-components'
@@ -20,10 +20,17 @@ const FamilyList = ({
   handleEditSubmit,
   handleHuomioitavaaSubmit,
   handleDelete,
-  isNewForm
+  isNewForm,
+  displayAll
 }) => {
   const [displayAmount, setDisplayAmount] = useState(DISPLAY_AMOUNT)
   useBottomScrollListener(() => Math.max(families.length, setDisplayAmount(displayAmount + DISPLAY_AMOUNT)))
+
+  useEffect(() => {
+    if (displayAll && isFinite(displayAmount)) {
+      setDisplayAmount(Infinity)
+    }
+  }, [displayAll])
 
   return (
     <div>

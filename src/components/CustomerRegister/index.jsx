@@ -12,18 +12,47 @@ import Filter from './Filter'
 import styled from 'styled-components'
 import Header from './InfoText'
 import HeaderText from '../HeaderText'
+import Select from './Select'
 
 const FlexParent = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: no-wrap;
+`
+const FlexChild = styled.div`
+  width: 100%;
+  display: flex;
+  flex-wrap: no-wrap;
 `
 
 const CustomerRegister = () => {
+  const [displayAll, setDisplayAll] = useState(false)
+
   const [filter, setFilter] = useState('')
   const [debouncedFilter] = useDebounce(filter, 500)
-
   const { dataSheetRows, parsedDataSheetRows, refetchDataSheetRows } = useDataSheet()
   const filteredRows = parsedDataSheetRows.filter(family => filterFamily(debouncedFilter, family))
+
+  const [order, setOrder] = useState('sendTime')
+  const sortBySendingTime = (family1, family2) => {
+    return compareDesc(family1.aika, family2.aika)
+  }
+  const sortFunction = (family1, family2) => {
+    const childrenDifference = family1.lapset.length - family2.lapset.length
+    if (childrenDifference === 0) {
+      return sortBySendingTime(family1, family2)
+    }
+
+    switch (order) {
+      case 'childrenAmountAsc':
+        return childrenDifference
+      case 'childrenAmountDesc':
+        return -childrenDifference
+      case 'sendTime':
+      default:
+        return sortBySendingTime(family1, family2)
+    }
+  }
 
   const validate = (family) => {
     const families = parsedDataSheetRows.filter(otherFamily => otherFamily.id !== family.id)
@@ -67,33 +96,50 @@ const CustomerRegister = () => {
       <NoPrint>
         <HeaderText>Asiakasrekisteri</HeaderText>
 
+        <div>
+          <FlexParent>
+            <Statistics families={parsedDataSheetRows} />
+            <Header />
+          </FlexParent>
+        </div>
+
+        <div>
+          <Filter
+            value={filter}
+            onChange={({ target }) => setFilter(target.value)}
+            placeholder="Filtteri"
+          />
+        </div>
+
         <FlexParent>
-          <Statistics families={parsedDataSheetRows} />
-          <Header />
+          <FlexChild>
+            <Button onClick={refetchDataSheetRows}>
+              Päivitä rekisteri
+            </Button>
+            {!displayAll &&
+              <Button onClick={() => setDisplayAll(true)}>
+                Näytä kaikki asiakkaat
+              </Button>
+            }
+            <Button onClick={() => window.print()}>
+              Tulosta avatut asiakkaat
+            </Button>
+          </FlexChild>
+
+          {/* <FlexChildRight> */}
+          <Select value={order} onChange={({ target }) => setOrder(target.value)} />
+          {/* </FlexChildRight> */}
         </FlexParent>
-
-        <Filter
-          value={filter}
-          onChange={({ target }) => setFilter(target.value)}
-          placeholder="Filtteri"
-        />
-
-        <Button onClick={refetchDataSheetRows}>
-          Päivitä rekisteri
-        </Button>
-        <Button onClick={() => window.print()}>
-          Tulosta avatut asiakkaat
-        </Button>
-
       </NoPrint>
 
       <FamilyList
-        families={filteredRows.sort((family1, family2) => compareDesc(family1.aika, family2.aika))}
+        families={filteredRows.sort((family1, family2) => sortFunction(family1, family2))}
         noFamiliesText="Asiakasrekistereitä ei ole löydetty."
         validate={validate}
         handleEditSubmit={handleEditSubmit}
         handleHuomioitavaaSubmit={handleHuomioitavaaSubmit}
         handleDelete={handleDelete}
+        displayAll={displayAll}
       />
     </div>
   )
