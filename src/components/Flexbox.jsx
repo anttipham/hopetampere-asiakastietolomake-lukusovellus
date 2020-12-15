@@ -9,14 +9,21 @@ const FlexParent = styled.div`
 `
 const FlexChild = styled.div`
   width: calc(100% / 3);
-  // min-width: 325px;
+  @media (max-width: 1080px) {
+    width: calc(100% / 2);
+  }
+  @media (max-width: 750px) {
+    width: 100%;
+  }
 `
 
-const Flexbox = ({ minWidth, children }) => {
+const Flexbox = ({ /* minWidth, */ children }) => {
+  // minWidth:iä käytin saadakseni flexboxin laatikoihin minimileveyden,
+  // mutta päädyin media-ratkaisuun, koska se on helpompi toteuttaa
   return (
     <FlexParent>
       {React.Children.map(children, (child) => (
-        <FlexChild style={{ minWidth }}>
+        <FlexChild>
           {child}
         </FlexChild>
       ))}
