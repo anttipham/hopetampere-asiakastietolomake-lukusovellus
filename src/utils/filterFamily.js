@@ -45,9 +45,11 @@ const filterFamily = (filterString, family) => {
   ]
 
   // console.log(familyStringArray)
-  return filterWords.some(searchWord => familyStringArray.some(familyString =>
-    familyString.includes(searchWord)
-  ))
+  return filterWords.every(searchWord =>
+    familyStringArray.some(familyString =>
+      familyString.includes(searchWord)
+    )
+  )
 }
 
 export default filterFamily
