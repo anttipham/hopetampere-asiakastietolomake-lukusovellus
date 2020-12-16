@@ -26,6 +26,17 @@ const FamilyList = ({
   const [displayAmount, setDisplayAmount] = useState(DISPLAY_AMOUNT)
   useBottomScrollListener(() => Math.max(families.length, setDisplayAmount(displayAmount + DISPLAY_AMOUNT)))
 
+  // console.log('\n\nPerheet: ')
+  // families[0] && console.log(families[0].aika.toLocaleString())
+  // for (let i = 0; i < families.length - 1; i++) {
+  //   console.log('\t', compareDesc(families[i].aika, families[i+1].aika))
+  //   console.log(families[i+1].aika.toLocaleString())
+  //   if (compareDesc(families[i].aika, families[i+1].aika) === 1) {
+  //     console.error('Järjestys ei ole laskeva!')
+  //     break
+  //   }
+  // }
+
   useEffect(() => {
     if (displayAll && isFinite(displayAmount)) {
       setDisplayAmount(Infinity)

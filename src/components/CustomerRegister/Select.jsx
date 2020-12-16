@@ -26,7 +26,8 @@ const StyledSelect = styled.select`
 
 const Select = ({ ...props }) => (
   <StyledSelect {...props}>
-    <option value="sendTime">Lähetysaika (uusin ensin)</option>
+    <option value="sendTimeDesc">Lähetysaika (uusin ensin)</option>
+    <option value="sendTimeAsc">Lähetysaika (vanhin ensin)</option>
     <option value="childrenAmountDesc">Lasten lukumäärä (eniten ensin)</option>
     <option value="childrenAmountAsc">Lasten lukumäärä (vähiten ensin)</option>
   </StyledSelect>

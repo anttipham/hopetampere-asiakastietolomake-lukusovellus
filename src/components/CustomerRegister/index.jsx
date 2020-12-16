@@ -33,14 +33,16 @@ const CustomerRegister = () => {
   const { dataSheetRows, parsedDataSheetRows, refetchDataSheetRows } = useDataSheet()
   const filteredRows = parsedDataSheetRows.filter(family => filterFamily(debouncedFilter, family))
 
-  const [order, setOrder] = useState('sendTime')
+  const [order, setOrder] = useState('sendTimeDesc')
   const sortBySendingTime = (family1, family2) => {
     return compareDesc(family1.aika, family2.aika)
   }
   const sortFunction = (family1, family2) => {
     const childrenDifference = family1.lapset.length - family2.lapset.length
-    if (childrenDifference === 0) {
-      return sortBySendingTime(family1, family2)
+    if (order.startsWith('childrenAmount')) {
+      if (childrenDifference === 0) {
+        return sortBySendingTime(family1, family2)
+      }
     }
 
     switch (order) {
@@ -48,7 +50,9 @@ const CustomerRegister = () => {
         return childrenDifference
       case 'childrenAmountDesc':
         return -childrenDifference
-      case 'sendTime':
+      case 'sendTimeAsc':
+        return -sortBySendingTime(family1, family2)
+      case 'sendTimeDesc':
       default:
         return sortBySendingTime(family1, family2)
     }
@@ -133,7 +137,7 @@ const CustomerRegister = () => {
       </NoPrint>
 
       <FamilyList
-        families={filteredRows.sort((family1, family2) => sortFunction(family1, family2))}
+        families={filteredRows.sort(sortFunction)}
         noFamiliesText="Asiakasrekistereitä ei ole löydetty."
         validate={validate}
         handleEditSubmit={handleEditSubmit}
