@@ -76,10 +76,9 @@ const formValidationError = (newFamily, families) => {
   const possibleAge = new Date().getFullYear() - Number(newFamily.syntymävuosi)
   if (possibleAge === 18) {
     errors.push('Lomakkeen lähettäjä on mahdollisesti alaikäinen, jos hän ei ole vielä viettänyt syntymäpäiväänsä tänä vuonna.')
+  } else if (possibleAge < 18) {
+    errors.push('Lomakkeen lähettäjä on alaikäinen!')
   }
-  //  else if (possibleAge < 18) {
-  //   errors.push('Lomakkeen lähettäjä on alaikäinen!')
-  // }
 
   // newFamily.lapset.some(lapsi => {
   //   if (calcAge(lapsi.syntymäpäivä) >= 18) {
