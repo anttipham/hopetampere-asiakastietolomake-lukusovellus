@@ -1,11 +1,13 @@
+Antti Pham (antti.pham@gmail.com) tarjoaa sinulle(???) lähdekoodin 6 kuukauden React-kokemuksella!
+
 # Hope Tampere - Asiakastietolomakkeen lukuohjelma
 
 Antin kehittämä sovellus, joka lukee Hope Tampereen Google Formsin asiakaslomakkeita ja antaa intuitiivisemman tavan lukea lomakkeiden tietoja.
 
 Tarkemmat ohjeet käytönottoon löydät Hopen Drivesta kansiosta Oma Drive/Projektit/Asiakastietolomake. Noudata ATL-sovelluksen käyttöönotto -tiedoston ohjeita.
 
-Jotta voisit käyttää lukusovellusta, sinun täytyy
-1. luoda Google Forms -lomake, jossa kysytään seuraavat kysymykset sanatarkkaan:
+Jotta lukusovellusta voisi käyttää, täytyy
+1. luoda Google Forms -lomake, jossa kysytään seuraavat kysymykset sanatarkasti:
    - _Yhteydenottoni koskee_
    
      Kysymysmuodoksi _Valintaruudut_, joissa on vaihtoehtoina:
