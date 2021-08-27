@@ -1,8 +1,8 @@
-Antti Pham (antti.pham@gmail.com) tarjoaa sinulle(???) lähdekoodin 6 kuukauden React-kokemuksella!
+Antti Pham (antti.pham@gmail.com) tarjoaa sinulle lähdekoodin 6 kuukauden React-kokemuksella!
 
 # Hope Tampere - Asiakastietolomakkeen lukuohjelma
 
-Antin kehittämä sovellus, joka lukee Hope Tampereen Google Formsin asiakaslomakkeita ja antaa intuitiivisemman tavan lukea lomakkeiden tietoja.
+Kehittämäni sovellus, joka lukee Hope Tampereen Google Formsin asiakaslomakkeita ja antaa intuitiivisemman tavan lukea lomakkeiden tietoja.
 
 Tarkemmat ohjeet käytönottoon löydät Hopen Drivesta kansiosta Oma Drive/Projektit/Asiakastietolomake. Noudata ATL-sovelluksen käyttöönotto -tiedoston ohjeita.
 
