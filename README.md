@@ -1,6 +1,6 @@
 # Hope Tampere - Asiakastietolomakkeen lukuohjelma
 
-Kehittämäni sovellus, joka lukee Hope Tampereen Google Formsin asiakaslomakkeita ja antaa intuitiivisemman tavan lukea lomakkeiden tietoja.
+Kehittämäni front end -sovellus, joka lukee Hope Tampereen Google Formsin asiakaslomakkeita ja antaa intuitiivisemman tavan lukea lomakkeiden tietoja. Sovelluksen tarkoituksena on korvata Hopen Excel-taulukot intuitiivisemmalla käyttöliittymällä. Sovellus käyttää nykyistä Googlen lomakejärjestelmää, joten pahimmassa tapauksessa on helppoa siirtyä edelliseen järjestelmään.
 
 Jotta lukusovellusta voisi käyttää, täytyy
 1. luoda Google Forms -lomake, jossa kysytään seuraavat kysymykset sanatarkasti:
